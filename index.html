@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarun Tomar | Portfolio</title>
+    <meta name="description" content="Tarun Tomar — B.Tech CSE student focused on software development, backend development, and open-source. Internships, projects, hackathons.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -85,7 +86,7 @@
         }
 
         nav.scrolled {
-            background-color: rgba(9, 9, 11, 0.5);
+            background-color: var(--nav-bg);
             backdrop-filter: blur(5px);
             border-bottom: 1px solid var(--border);
         }
@@ -189,6 +190,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
             border: 1px solid var(--border);
             color: var(--text-muted);
             padding: 10px 15px;
@@ -205,6 +207,47 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+        }
+
+        /* Vertical scroller: 3 cards visible, scroll down for more.
+           Bottom mask fades the next card out as a "more below" hint. */
+        .scroller {
+            overflow-y: auto;
+            scroll-snap-type: y proximity;
+            padding-right: 8px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+            -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 36px), transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 calc(100% - 36px), transparent 100%);
+        }
+
+        /* reached the end -> no fade, last card fully readable */
+        .scroller.at-end {
+            -webkit-mask-image: none;
+            mask-image: none;
+        }
+
+        .scroller > .card {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+        }
+
+        .scroller .card-header {
+            flex-wrap: wrap;
+            gap: 4px 10px;
+        }
+
+        .scroller::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scroller::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .scroller::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
         }
 
         .card {
@@ -287,6 +330,29 @@
             font-weight: 600;
         }
 
+        /* Contact */
+        .contact-lead {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* GitHub stats cards */
+        .gh-item {
+            margin-bottom: 15px;
+        }
+
+        .gh-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .gh-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -320,9 +386,9 @@
             <a href="#skills">Skills</a>
             <a href="#projects">Projects</a>
             <a href="#opensource">Open Source</a>
-            <a href="#direction">Direction</a>
+            <a href="#hackathons">Leadership</a>
             <a href="#contact">Contact</a>
-            <button class="theme-toggle"><i class="fa-regular fa-sun"></i></button>
+            <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-regular fa-sun"></i></button>
         </div>
     </nav>
 
@@ -335,16 +401,14 @@
             </div>
             <h1>Tarun Tomar</h1>
             <p class="bio">
-                Computer Science student at IILM University, Greater Noida.<br>
-                Focused on backend development, AI, and open-source.<br>
-                Actively building real-world projects and contributing to open-source.
+                B.Tech Computer Science student at IILM University, Greater Noida.<br>
+                Focused on software development, backend development, and open-source.<br>
+                Building practical projects through internships, hackathons, and technical activities.
             </p>
             <div class="action-buttons">
-                <a href="https://github.com/TarunWorks" class="btn" target="_blank"><i
-                        class="fa-brands fa-github"></i></a>
-                <a href="https://linkedin.com/in/tarun-tomar-916402358" class="btn" target="_blank"><i
-                        class="fa-brands fa-linkedin-in"></i></a>
-                <a href="mailto:tarun097563@gmail.com" class="btn"><i class="fa-regular fa-envelope"></i></a>
+                <a href="https://github.com/TarunWorks" class="btn" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com/in/tarun-tomar-916402358" class="btn" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="mailto:tarun097563@gmail.com" class="btn" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
             </div>
         </header>
 
@@ -355,11 +419,11 @@
             <p class="section-label">ABOUT</p>
             <h2>Who am I?</h2>
             <p style="color: var(--text-muted); line-height: 1.8;">
-                I am currently learning Python, Machine Learning, and backend development.
-                I am exploring open-source development and working towards contributing
-                to real-world projects, especially in AI-related systems.<br><br>
-                My goal is to build strong fundamentals and gain practical experience
-                through projects and open-source contributions.
+                B.Tech CSE student focused on software development, backend development,
+                and open-source contribution. I learn by building — practical projects,
+                internships, hackathons, and technical activities.<br><br>
+                Recently worked as a Web Developer Intern at Codec Technologies (AICTE & ICAC approved),
+                and actively contributing to open-source (Sugar Labs) while preparing for GSoC.
             </p>
         </section>
 
@@ -374,35 +438,41 @@
                 <h3>Programming</h3>
                 <div class="skills-flex">
                     <div class="skill-badge"><i class="fa-brands fa-python" style="color: #3776AB;"></i> Python</div>
-                    <div class="skill-badge"><i class="fa-solid fa-c" style="color: #A8B9CC;"></i> C</div>
+                    <div class="skill-badge"><i class="fa-solid fa-code" style="color: #659AD2;"></i> C</div>
+                    <div class="skill-badge"><i class="fa-solid fa-code" style="color: #659AD2;"></i> C++</div>
                 </div>
             </div>
 
             <div class="skills-category">
-                <h3>Technologies</h3>
+                <h3>Concepts</h3>
                 <div class="skills-flex">
-                    <div class="skill-badge"><i class="fa-solid fa-server" style="color: #3b82f6;"></i> Backend
-                        Development (Learning)</div>
-                    <div class="skill-badge"><i class="fa-solid fa-brain" style="color: #FF6F00;"></i> Machine Learning (Learning)</div>
-                    <div class="skill-badge"><i class="fa-brands fa-linux" style="color: #FCC624;"></i> Linux</div>
+                    <div class="skill-badge"><i class="fa-solid fa-cube" style="color: #22c55e;"></i> OOP</div>
+                    <div class="skill-badge"><i class="fa-solid fa-diagram-project" style="color: #38bdf8;"></i> Data Structures &amp; Algorithms</div>
+                    <div class="skill-badge"><i class="fa-solid fa-microchip" style="color: #a78bfa;"></i> Computer Organization</div>
+                    <div class="skill-badge"><i class="fa-solid fa-network-wired" style="color: #38bdf8;"></i> Networking</div>
                 </div>
             </div>
 
             <div class="skills-category">
-                <h3>Tools</h3>
+                <h3>Tools &amp; Technologies</h3>
                 <div class="skills-flex">
+                    <div class="skill-badge"><i class="fa-brands fa-linux" style="color: #FCC624;"></i> Linux Administration</div>
                     <div class="skill-badge"><i class="fa-solid fa-code" style="color: #007ACC;"></i> VS Code</div>
                     <div class="skill-badge"><i class="fa-brands fa-git-alt" style="color: #F05032;"></i> Git</div>
                     <div class="skill-badge"><i class="fa-brands fa-github"></i> GitHub</div>
+                    <div class="skill-badge"><i class="fa-solid fa-globe" style="color: #22c55e;"></i> Web Development</div>
+                    <div class="skill-badge"><i class="fa-solid fa-wand-magic-sparkles" style="color: #eab308;"></i> Generative AI</div>
+                    <div class="skill-badge"><i class="fa-solid fa-link" style="color: #a78bfa;"></i> Blockchain</div>
                 </div>
             </div>
 
             <div class="skills-category">
-                <h3>Interests</h3>
+                <h3>Focus</h3>
                 <div class="skills-flex">
-                    <div class="skill-badge"><i class="fa-solid fa-robot" style="color: #eab308;"></i> AI</div>
-                    <div class="skill-badge"><i class="fa-solid fa-brain" style="color: #FF6F00;"></i> Machine Learning
-                        (Learning)</div>
+                    <div class="skill-badge"><i class="fa-solid fa-robot" style="color: #eab308;"></i> AI &amp; ML</div>
+                    <div class="skill-badge"><i class="fa-solid fa-database" style="color: #22c55e;"></i> Data Science</div>
+                    <div class="skill-badge"><i class="fa-solid fa-server" style="color: #3b82f6;"></i> Backend
+                        Development</div>
                     <div class="skill-badge"><i class="fa-solid fa-code-pull-request" style="color: #22c55e;"></i> Open
                         Source</div>
                 </div>
@@ -415,12 +485,44 @@
         <section id="projects" class="fade-in">
             <p class="section-label">WORK</p>
             <h2>Featured Projects</h2>
-            <div class="card-list">
+            <div class="card-list scroller">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-cloud-sun"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>Weather Application</h3> <a href="https://weather.taruntomar.tech/" target="_blank"
+                                class="text-muted"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px; font-size: 0.85rem;">
+                            <a href="https://weather.taruntomar.tech/" target="_blank" class="os-tag" style="background-color: #3b82f6;">Live Demo</a>
+                        </p>
+                        <ul class="text-muted" style="margin-top: 10px; padding-left: 20px; font-size: 0.9rem;">
+                            <li>Built and deployed a web-based weather app with interactive interface</li>
+                            <li>Integrated weather information and dynamically displayed results for users</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-music"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>Desi Music Player</h3> <a href="https://music.taruntomar.tech/" target="_blank"
+                                class="text-muted"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px; font-size: 0.85rem;">
+                            <a href="https://music.taruntomar.tech/" target="_blank" class="os-tag" style="background-color: #3b82f6;">Live Demo</a>
+                        </p>
+                        <ul class="text-muted" style="margin-top: 10px; padding-left: 20px; font-size: 0.9rem;">
+                            <li>Built and deployed a browser-based music player with playback controls and playlist</li>
+                            <li>Developed interactive interface for browsing and playing music tracks</li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-icon"><i class="fa-solid fa-network-wired"></i></div>
                     <div class="card-content">
                         <div class="card-header">
-                            <h3>Improving CNN Model Accuracy</h3> <a href="https://github.com/TarunWorks/project-name" target="_blank"
+                            <h3>Improving CNN Model Accuracy</h3> <a href="https://github.com/TarunWorks" target="_blank"
                                 class="text-muted"><i class="fa-brands fa-github"></i></a>
                         </div>
 
@@ -435,7 +537,7 @@
                     <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
                     <div class="card-content">
                         <div class="card-header">
-                            <h3>Number System Converter (C CLI Tool)</h3> <a href="https://github.com/TarunWorks/project-name"
+                            <h3>Number System Converter (C CLI Tool)</h3> <a href="https://github.com/TarunWorks"
                                 target="_blank" class="text-muted"><i class="fa-brands fa-github"></i></a>
                         </div>
 
@@ -444,20 +546,6 @@
                             <li>Implemented conversion logic between binary, decimal, and hexadecimal</li>
                             <li>Strengthened understanding of number systems and low-level programming</li>
                         </ul>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-users"></i></div>
-                    <div class="card-content">
-                        <div class="card-header">
-                            <h3>SIH 2025 Internal Hackathon</h3> <span class="text-muted">Team Lead</span>
-                        </div>
-                        <p class="text-muted" style="margin-top: 5px; font-size: 0.85rem;">
-                            Led team <strong>Code Crew</strong> in my 1st semester and proudly presented our project
-                            <strong>AlumniConnect</strong>. Ranked among top teams out of 222+ participants and
-                            shortlisted to the waitlist for nationals. A great milestone that gave us exposure,
-                            confidence, and motivation to build more solutions that matter.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -474,13 +562,80 @@
                     <div class="card-icon"><i class="fa-solid fa-code-fork"></i></div>
                     <div class="card-content">
                         <div class="card-header">
-                            <h3>Contributor – Sugar Labs</h3> <span class="text-muted" style="white-space: nowrap;">Currently</span>
+                            <h3>Contributor – Sugar Labs</h3> <a href="https://github.com/sugarlabs/speak-ai"
+                                target="_blank" class="text-muted"><i class="fa-brands fa-github"></i></a>
                         </div>
                         <span class="os-tag"><i class="fa-solid fa-star"></i> GSoC Aspirant</span>
                         <p class="text-muted" style="margin-top: 5px;">
-                            Exploring the Sugar Labs Speak AI project and understanding its architecture.<br>
-                            Currently preparing a proposal for Google Summer of Code.<br>
-                            Reading issues and understanding project structure. Preparing first contribution (PR).
+                            Contributing to the Sugar Labs <strong>Speak AI</strong> project — exploring its architecture
+                            and working through GitHub-based issue and pull request workflows.<br>
+                            Learning to understand an existing codebase and build with community-driven development.
+                        </p>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                            <a href="https://github.com/sugarlabs/speak-ai/pull/29" target="_blank" class="btn"
+                                style="font-size: 0.85rem; padding: 8px 12px;"><i class="fa-solid fa-code-pull-request"></i>PR #29</a>
+                            <a href="https://github.com/sugarlabs/speak-ai/pull/19" target="_blank" class="btn"
+                                style="font-size: 0.85rem; padding: 8px 12px;"><i class="fa-solid fa-code-pull-request"></i>PR #19</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider fade-in"></div>
+
+        <!-- Leadership & Hackathons Section -->
+        <section id="hackathons" class="fade-in">
+            <p class="section-label">LEADERSHIP & HACKATHONS</p>
+            <h2>Hackathons, Leadership & Experience</h2>
+            <div class="card-list scroller">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>Web Developer Intern — Codec Technologies Pvt. Ltd.</h3> <span class="text-muted" style="white-space: nowrap;">Jun 2026 - Jul 2026</span>
+                        </div>
+                        <ul class="text-muted" style="margin-top: 10px; padding-left: 20px; font-size: 0.9rem;">
+                            <li>Completed 1-month AICTE & ICAC approved internship as Web Developer Intern</li>
+                            <li>Gained practical exposure to web development and project-oriented technical work</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-people-roof"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>Student Coordinator — Internal SIH 2026</h3> <span class="text-muted">Aug 2026</span>
+                        </div>
+                        <ul class="text-muted" style="margin-top: 10px; padding-left: 20px; font-size: 0.9rem;">
+                            <li>Coordinated student participation and supported execution of Internal SIH at IILM University</li>
+                            <li>Worked with teams and organizers for smooth event coordination</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>Team Lead — SIH 2025, Code Crew</h3> <span class="text-muted">AlumniConnect</span>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px; font-size: 0.85rem;">
+                            Led team <strong>Code Crew</strong> in my 1st semester and proudly presented our project
+                            <strong>AlumniConnect</strong>. Ranked among the <strong>top 50 teams</strong> out of
+                            222+ participants in Internal SIH 2025. A great milestone that gave us exposure,
+                            confidence, and motivation to build more solutions that matter.
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>Ideathon 3.0 — Street IQ</h3> <span class="text-muted">IILM University</span>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px; font-size: 0.85rem;">
+                            Presented <strong>Street IQ</strong>, an AI-powered road safety and infrastructure
+                            reporting concept — problem identification, intelligent prioritization, and scalability.
                         </p>
                     </div>
                 </div>
@@ -493,30 +648,18 @@
         <section id="github" class="fade-in">
             <p class="section-label">ACTIVITY</p>
             <h2>GitHub</h2>
-            <a href="https://github.com/TarunWorks" target="_blank" style="display: block;">
-                <img src="https://github-readme-stats.vercel.app/api?username=TarunWorks&show_icons=true&theme=transparent&hide_border=true&title_color=fafafa&text_color=a1a1aa&icon_color=22c55e"
-                    alt="GitHub Stats" style="width: 100%; border-radius: 8px; border: 1px solid var(--border);">
-            </a>
-            <a href="https://github.com/TarunWorks" target="_blank" style="display: block; margin-top: 15px;">
-                <img src="https://github-readme-streak-stats.herokuapp.com/?user=TarunWorks&theme=transparent&hide_border=true&ring=22c55e&fire=22c55e&currStreakLabel=fafafa&sideLabels=a1a1aa&dates=a1a1aa&currStreakNum=fafafa&sideNums=fafafa"
-                    alt="GitHub Streak" style="width: 100%; border-radius: 8px; border: 1px solid var(--border);">
-            </a>
-        </section>
-
-        <div class="divider fade-in"></div>
-
-        <!-- Direction Section (merged) -->
-        <section id="direction" class="fade-in">
-            <p class="section-label">DIRECTION</p>
-            <h2>What I'm Working Towards</h2>
-            <p style="color: var(--text-muted); line-height: 1.8;">
-                I am currently focused on learning Python, backend development, and exploring open-source contributions.
-                <br><br>
-                I am preparing for Google Summer of Code (GSoC) and actively working on building real-world projects.
-                <br><br>
-                I am also interested in research-oriented opportunities such as DRDO internships, particularly in AI,
-                embedded systems, and secure software development.
-            </p>
+            <div class="gh-item">
+                <a href="https://github.com/TarunWorks" target="_blank">
+                    <img data-gh="stats" alt="GitHub Stats" loading="lazy"
+                        onerror="this.closest('.gh-item').remove()">
+                </a>
+            </div>
+            <div class="gh-item">
+                <a href="https://github.com/TarunWorks" target="_blank">
+                    <img data-gh="streak" alt="GitHub Streak" loading="lazy"
+                        onerror="this.closest('.gh-item').remove()">
+                </a>
+            </div>
         </section>
 
         <div class="divider fade-in"></div>
@@ -525,17 +668,7 @@
         <section id="education" class="fade-in">
             <p class="section-label">BACKGROUND</p>
             <h2>Education & Certifications</h2>
-            <div class="card-list">
-                <div class="card">
-                    <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <div class="card-content">
-                        <div class="card-header">
-                            <h3>B.Tech Computer Science</h3> <span class="text-muted">2025 - 2029</span>
-                        </div>
-                        <p class="text-muted" style="margin-top: 5px;">Pursuing comprehensive studies in software
-                            engineering, algorithms, and distributed systems.</p>
-                    </div>
-                </div>
+            <div class="card-list scroller">
                 <div class="card">
                     <div class="card-icon"><i class="fa-solid fa-link"></i></div>
                     <div class="card-content">
@@ -547,9 +680,45 @@
                             technologies. <br><a
                                 href="https://aicertswpcdn.blob.core.windows.net/certs365-live/images/1758621919088_c674562f8858.png"
                                 target="_blank"
-                                style="color: #2ea44f; font-weight: 500; font-size: 0.85rem; text-decoration: underline;"><i
-                                    class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i> View
-                                Certificate</a></p>
+                                style="color: #2ea44f; font-weight: 500; font-size: 0.85rem; text-decoration: underline;"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem; vertical-align: 0.05em;"></i> View Certificate</a></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>B.Tech Computer Science & Engineering</h3> <span class="text-muted">2025 - 2029</span>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px;">IILM University, Greater Noida — software
+                            engineering, algorithms, and practical project work.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-award"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>Generative AI Essentials</h3> <span class="text-muted">2026</span>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px;"><strong>TCS iON / TCS Foundation</strong></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>AI & Cybersecurity Awareness</h3> <span class="text-muted">2026</span>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px;"><strong>TCS iON / TCS Foundation</strong></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3>RoboVerse Robotics Workshop</h3> <span class="text-muted">Techfest, IIT Bombay</span>
+                        </div>
+                        <p class="text-muted" style="margin-top: 5px;">Hands-on activity using Tinkercad + technical
+                            and innovation activities at IILM University.</p>
                     </div>
                 </div>
             </div>
@@ -561,15 +730,13 @@
         <section id="contact" class="fade-in">
             <p class="section-label">GET IN TOUCH</p>
             <h2>Contact</h2>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Feel free to reach out for exciting opportunities,
-                open-source collaborations, or just to say hi!</p>
+            <p class="contact-lead">Open to internships, open-source collaboration, and interesting problems.
+                Email is the fastest way to reach me &mdash; happy to answer anything.</p>
+
             <div class="action-buttons" style="flex-wrap: wrap;">
-                <a href="mailto:tarun097563@gmail.com" class="btn"><i class="fa-regular fa-envelope"></i>
-                    tarun097563@gmail.com</a>
-                <a href="https://github.com/TarunWorks" class="btn" target="_blank"><i class="fa-brands fa-github"></i>
-                    GitHub</a>
-                <a href="https://linkedin.com/in/tarun-tomar-916402358" class="btn" target="_blank"><i class="fa-brands fa-linkedin-in"></i>
-                    LinkedIn</a>
+                <a href="mailto:tarun097563@gmail.com?subject=Hi%20Tarun%20%E2%80%93%20quick%20question" class="btn"><i class="fa-regular fa-envelope"></i>tarun097563@gmail.com</a>
+                <a href="https://github.com/TarunWorks" class="btn" target="_blank"><i class="fa-brands fa-github"></i>GitHub</a>
+                <a href="https://linkedin.com/in/tarun-tomar-916402358" class="btn" target="_blank"><i class="fa-brands fa-linkedin-in"></i>LinkedIn</a>
             </div>
         </section>
 
@@ -589,10 +756,37 @@
         // 1. Theme Toggle
         const themeBtn = document.querySelector('.theme-toggle');
         const themeIcon = themeBtn.querySelector('i');
+        const isLight = () => document.body.classList.contains('light-mode');
+
+        // github-readme-stats bakes text colour into the SVG, so the URL has to
+        // change with the theme or the card is invisible in light mode.
+        // NOTE: the upstream github-readme-stats.vercel.app deployment is paused
+        // (503 DEPLOYMENT_PAUSED), so we use a community mirror of the same project.
+        const GH_URL = {
+            stats: 'https://github-readme-stats-one-bice.vercel.app/api?username=TarunWorks&show_icons=true&theme=transparent&hide_border=true',
+            streak: 'https://streak-stats.demolab.com/?user=TarunWorks&theme=transparent&hide_border=true'
+        };
+        const GH_COLORS = {
+            dark: 'title_color=fafafa&text_color=a1a1aa&icon_color=22c55e&ring=22c55e&fire=22c55e'
+                + '&currStreakLabel=fafafa&sideLabels=a1a1aa&dates=a1a1aa&currStreakNum=fafafa&sideNums=fafafa',
+            light: 'title_color=09090b&text_color=52525b&icon_color=16a34a&ring=16a34a&fire=16a34a'
+                + '&currStreakLabel=09090b&sideLabels=52525b&dates=52525b&currStreakNum=09090b&sideNums=09090b'
+        };
+
+        function applyGhTheme() {
+            const colors = isLight() ? GH_COLORS.light : GH_COLORS.dark;
+            document.querySelectorAll('img[data-gh]').forEach(img => {
+                img.src = GH_URL[img.dataset.gh] + '&' + colors;
+            });
+        }
+
+        applyGhTheme();
+
         themeBtn.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
             themeIcon.classList.toggle('fa-sun');
             themeIcon.classList.toggle('fa-moon');
+            applyGhTheme();
         });
 
         // 2. Sticky Navbar Blur
@@ -603,8 +797,10 @@
         // 3. Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (!target) return;
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                target.scrollIntoView({ behavior: 'smooth' });
             });
         });
 
@@ -619,7 +815,34 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // 5. Visitor Counter
+        // 5. Card Scroller: show 3 cards + a faded peek of the next, scroll for the rest
+        const VISIBLE = 3;
+        const PEEK = 36; // must match the .scroller mask fade size
+
+        function sizeScrollers() {
+            document.querySelectorAll('.scroller').forEach(s => {
+                const cards = [...s.querySelectorAll(':scope > .card')];
+                s.style.maxHeight = '';
+                s.classList.remove('at-end');
+                if (cards.length <= VISIBLE) return;
+                const gap = parseFloat(getComputedStyle(s).rowGap) || 0;
+                s.style.maxHeight =
+                    cards.slice(0, VISIBLE).reduce((a, c) => a + c.offsetHeight, 0) + gap * (VISIBLE - 1) + PEEK + 'px';
+            });
+        }
+
+        document.querySelectorAll('.scroller').forEach(s => {
+            s.tabIndex = 0; // keyboard-scrollable
+            s.addEventListener('scroll', () => {
+                s.classList.toggle('at-end', s.scrollTop + s.clientHeight >= s.scrollHeight - 2);
+            }, { passive: true });
+        });
+
+        sizeScrollers();
+        window.addEventListener('resize', sizeScrollers);
+        window.addEventListener('load', sizeScrollers);
+
+        // 6. Visitor Counter
         (function() {
             const el = document.getElementById('visitorCount');
             // Use localStorage for simple page-view tracking
@@ -628,16 +851,19 @@
             localStorage.setItem('tt_visits', count);
             el.textContent = count;
 
-            // When deployed, fetch from API for real count
-            fetch('https://visitor-badge.laobi.icu/badge?page_id=taruntomar.portfolio&format=json')
-                .then(r => r.json())
-                .then(data => {
-                    if (data && data.value) el.textContent = data.value;
+            // The badge service only serves SVG (there is no JSON endpoint), so
+            // r.json() always threw and this silently fell back to localStorage.
+            // The count is the last numeric <text> node in the SVG.
+            fetch('https://visitor-badge.laobi.icu/badge?page_id=taruntomar.portfolio')
+                .then(r => r.text())
+                .then(svg => {
+                    const nums = svg.match(/<text[^>]*>(\d+)<\/text>/g);
+                    if (nums) el.textContent = nums[nums.length - 1].replace(/<[^>]+>/g, '');
                 })
-                .catch(() => {}); // fallback to localStorage count
+                .catch(() => {}); // keep localStorage count
         })();
 
-        // 6. Floating Particles Background
+        // 7. Floating Particles Background
         (function() {
             const canvas = document.getElementById('particles');
             const ctx = canvas.getContext('2d');
