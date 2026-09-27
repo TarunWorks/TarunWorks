@@ -1,5 +1,9 @@
 <div align="center">
 
+<img src="ezgif.com-crop.gif" alt="Tarun Tomar" width="100%" />
+
+<br><br>
+
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&pause=1200&color=2E9EFF&center=true&width=760&lines=Hi%2C+I%27m+Tarun+Tomar+%F0%9F%91%8B;B.Tech+CSE+Student+%7C+Open+Source+Contributor;Building+things+that+actually+run" alt="Tarun Tomar" />
 
 <br>
